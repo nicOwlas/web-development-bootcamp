@@ -1,19 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 function ToDoItem(props) {
-  const [isDone, setIsDone] = useState(false);
+  // function onChecked() {
+  //   return props.onChecked(props.id);
+  // }
 
-  function handleCompletion(event) {
-    setIsDone(!isDone);
-  }
-
-  return (
-    <li
-      style={{ textDecoration: isDone ? "line-through" : null }}
-      onClick={handleCompletion}
-    >
-      {props.item}
-    </li>
-  );
+  return <li onClick={() => props.onChecked(props.id)}>{props.item}</li>;
 }
 
 export default ToDoItem;
