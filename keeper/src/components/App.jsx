@@ -5,34 +5,37 @@ import Header from "./Header";
 import Note from "./Note";
 
 function App() {
-  const [notes, setNotes] = useState([{ title: "test", content: "blabla" }]);
+  const [notes, setNotes] = useState([]);
 
-  function handleAdd(noteText) {
-    setNotes((previousState) => [
-      { title: noteText.title, content: noteText.content },
-      ...previousState,
-    ]);
+  function addNote(newNote) {
+    setNotes((prevNotes) => {
+      return [...prevNotes, newNote];
+    });
   }
 
-  function handleDelete(id) {
-    setNotes((previousState) =>
-      previousState.filter((note, index) => index !== id)
-    );
+  function deleteNote(id) {
+    setNotes((prevNotes) => {
+      return prevNotes.filter((noteItem, index) => {
+        return index !== id;
+      });
+    });
   }
 
   return (
     <div>
       <Header />
-      <CreateArea onAdd={handleAdd} />
-      {notes.map((note, index) => (
-        <Note
-          key={index}
-          id={index}
-          onDelete={handleDelete}
-          title={note.title}
-          content={note.content}
-        />
-      ))}
+      <CreateArea onAdd={addNote} />
+      {notes.map((noteItem, index) => {
+        return (
+          <Note
+            key={index}
+            id={index}
+            title={noteItem.title}
+            content={noteItem.content}
+            onDelete={deleteNote}
+          />
+        );
+      })}
       <Footer />
     </div>
   );

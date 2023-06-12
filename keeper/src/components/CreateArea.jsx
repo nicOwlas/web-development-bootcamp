@@ -1,52 +1,63 @@
+import AddIcon from "@mui/icons-material/Add";
+import Fab from "@mui/material/Fab";
+import Zoom from "@mui/material/Zoom";
 import React, { useState } from "react";
 
 function CreateArea(props) {
-  const [noteText, setNoteText] = useState({ title: "", content: "" });
+  const [note, setNote] = useState({
+    title: "",
+    content: "",
+  });
 
-  function handleKeyDown(event) {
-    if (
-      (event.key === "Enter" && event.metaKey) ||
-      (event.key === "Enter" && event.ctrlKey)
-    ) {
-      props.onAdd(noteText);
-      setNoteText({ title: "", content: "" });
-    }
-  }
+  const [expanded, setExpanded] = useState(false);
 
   function handleChange(event) {
-    setNoteText((previousState) => ({
-      ...previousState,
-      [event.target.name]: event.target.value,
-    }));
+    const { name, value } = event.target;
+
+    setNote((prevNote) => {
+      return {
+        ...prevNote,
+        [name]: value,
+      };
+    });
+  }
+
+  function submitNote(event) {
+    props.onAdd(note);
+    setNote({
+      title: "",
+      content: "",
+    });
+    event.preventDefault();
+  }
+
+  function handleExpansion() {
+    setExpanded(true);
   }
 
   return (
     <div>
-      <form
-        onChange={handleChange}
-        onSubmit={(event) => event.preventDefault()}
-      >
-        <input
-          name="title"
-          placeholder="Title"
-          value={noteText.title}
-          onKeyDown={handleKeyDown}
-        />
+      <form className="create-note" onClick={handleExpansion}>
+        {expanded ? (
+          <input
+            name="title"
+            onChange={handleChange}
+            value={note.title}
+            placeholder="Title"
+          />
+        ) : null}
         <textarea
           name="content"
+          onChange={handleChange}
+          value={note.content}
           placeholder="Take a note..."
-          rows="3"
-          value={noteText.content}
-          onKeyDown={handleKeyDown}
+          rows={expanded ? "3" : "1"}
         />
-        <button
-          onClick={() => {
-            props.onAdd(noteText);
-            setNoteText({ title: "", content: "" });
-          }}
-        >
-          Add
-        </button>
+        <Zoom in={expanded}>
+          <Fab onClick={submitNote}>
+            <AddIcon fontSize="large" />
+          </Fab>
+        </Zoom>
       </form>
     </div>
   );
