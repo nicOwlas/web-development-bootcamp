@@ -8,11 +8,16 @@ function App() {
   const [notes, setNotes] = useState([{ title: "test", content: "blabla" }]);
 
   function handleAdd(noteText) {
-    console.log(notes);
     setNotes((previousState) => [
       { title: noteText.title, content: noteText.content },
       ...previousState,
     ]);
+  }
+
+  function handleDelete(id) {
+    setNotes((previousState) =>
+      previousState.filter((note, index) => index !== id)
+    );
   }
 
   return (
@@ -23,6 +28,7 @@ function App() {
         <Note
           key={index}
           id={index}
+          onDelete={handleDelete}
           title={note.title}
           content={note.content}
         />
