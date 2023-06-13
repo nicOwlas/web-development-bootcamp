@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 
 export default function Board() {
-  const [checkedSquare, setCheckedSquare] = useState(false);
-
-  function handleClick() {
-    console.log("clicked");
-    setCheckedSquare(!checkedSquare);
-  }
-
   function Square({ value }) {
+    const [checkedSquare, setCheckedSquare] = useState(false);
+
+    function handleClick() {
+      console.log("clicked");
+      setCheckedSquare(!checkedSquare);
+    }
+
     return (
       <button onClick={handleClick} className="square">
         {checkedSquare ? value : "X"}
