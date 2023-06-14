@@ -4,20 +4,31 @@ import Square from "./Square";
 function Board() {
   const [squares, setSquares] = useState(Array(9).fill(null));
   const [playerShape, setPlayerShape] = useState("X");
+  console.log("Board function is executed");
+
+  const winner = calculateWinner(squares);
+  let status;
+  if (winner) {
+    status = "Winner is " + winner;
+  } else {
+    status = "Next player is " + playerShape;
+  }
 
   function handlSquareClick(id) {
-    console.log("clicked id:", id);
-    if (squares[id]) {
+    // Do not allow a square to be played twice
+    if (calculateWinner(squares) || squares[id]) {
       return;
     }
     const nextSquares = squares.slice();
     nextSquares[id] = playerShape;
     setSquares(nextSquares);
     playerShape === "X" ? setPlayerShape("O") : setPlayerShape("X");
+    console.log(calculateWinner(squares));
   }
 
   return (
     <>
+      <div>{status}</div>
       <div className="board-row">
         <Square
           key={0}
@@ -80,6 +91,34 @@ function Board() {
       </div>
     </>
   );
+
+  function calculateWinner(squares) {
+    const lines = [
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8],
+      [0, 4, 8],
+      [2, 4, 6],
+    ];
+    let gameStatus;
+    for (let i = 0; i < lines.length; i++) {
+      const [a, b, c] = lines[i];
+
+      if (
+        squares[a] &&
+        squares[a] === squares[b] &&
+        squares[a] === squares[c]
+      ) {
+        return squares[a];
+      } else {
+        gameStatus = "Next player is " + playerShape;
+      }
+    }
+    return null;
+  }
 }
 
 export default Board;
