@@ -7,16 +7,13 @@ function Board() {
 
   function handlSquareClick(id) {
     console.log("clicked id:", id);
-    setSquares((previousState) =>
-      previousState.map((square, index) =>
-        index === id ? playerShape : previousState[index]
-      )
-    );
-    if (playerShape === "X") {
-      setPlayerShape("O");
-    } else {
-      setPlayerShape("X");
+    if (squares[id]) {
+      return;
     }
+    const nextSquares = squares.slice();
+    nextSquares[id] = playerShape;
+    setSquares(nextSquares);
+    playerShape === "X" ? setPlayerShape("O") : setPlayerShape("X");
   }
 
   return (
