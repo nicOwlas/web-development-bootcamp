@@ -1,0 +1,11 @@
+.todo-item {
+  display: flex;
+  flex-direction: row;
+  padding: 0px;
+  gap: 14px;
+  align-items: center;
+}
+
+.checkbox {
+  margin: 10px;
+}
