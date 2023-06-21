@@ -1,39 +1,65 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import "./App.css";
-import InputValue from "./InputValue";
-import TodoItem from "./TodoItem";
 
-function App() {
-  const [items, setItems] = useState([{ object: "Milk", checked: false }]);
+interface Item {
+  task: string;
+  checked: boolean;
+}
 
-  function handleValidate(inputValue: string) {
-    setItems([{ object: inputValue, checked: false }, ...items]);
-  }
+interface TodoItemProps {
+  item: Item;
+  index: number;
+  onDone: (index: number) => void;
+}
 
-  function handleDone(id: number) {
-    const itemsUpdated = [...items];
-    itemsUpdated[id] = {
-      ...itemsUpdated[id],
-      checked: !itemsUpdated[id].checked,
-    };
-    setItems(itemsUpdated);
-    console.log(items);
-  }
+const TodoItem: React.FC<TodoItemProps> = ({ item, index, onDone }) => {
+  return (
+    <li
+      style={{
+        textDecoration: item.checked ? "line-through" : "none",
+      }}
+      onClick={() => onDone(index)}
+    >
+      {item.task}
+    </li>
+  );
+};
 
-  let itemList: any = [];
-  items.map((item: any, index: number) => {
-    return itemList.push(
-      <TodoItem key={index} id={index} item={item} onDone={handleDone} />
+const App = () => {
+  const [items, setItems] = useState<Item[]>([
+    { task: "Buy milk", checked: false },
+  ]);
+  const [inputValue, setInputValue] = useState("");
+
+  const handleValidate = (task: string) => {
+    if (task !== "") {
+      setItems((prevItems) => [...prevItems, { task, checked: false }]);
+      setInputValue("");
+    }
+  };
+
+  const handleDone = (index: number) => {
+    setItems((prevItems) =>
+      prevItems.map((item, i) =>
+        i === index ? { ...item, checked: !item.checked } : item
+      )
     );
-  });
+  };
 
   return (
-    <div className="App">
+    <div>
       <h1>My Todo List</h1>
-      <InputValue onValidate={handleValidate} />
-      {itemList}
+      <input
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
+        placeholder="Enter todo item"
+      />
+      <button onClick={() => handleValidate(inputValue)}>Add Task</button>
+      {items.map((item, index) => (
+        <TodoItem key={index} item={item} index={index} onDone={handleDone} />
+      ))}
     </div>
   );
-}
+};
 
 export default App;

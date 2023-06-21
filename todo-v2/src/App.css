@@ -1,21 +1,44 @@
-/* body {
-  text-align: center;
-  background-color: #edf2f7;
-  width: 100vw;
-  height: 100vh;
-} */
+/* App.css */
 
-.App {
-  text-align: center;
-  width: 50%;
-  margin-left: 25%;
-  background-color: white;
-  height: 700px;
-  margin-top: 200px;
-  border-radius: 20px;
+body {
+  font-family: Arial, sans-serif;
 }
 
 h1 {
-  /* padding-top: 50px; */
+  color: #333;
+}
+
+input,
+button {
+  box-sizing: border-box;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+button {
+  cursor: pointer;
+  background-color: #4caf50; /* Green */
+  border: none;
+  color: white;
+  text-align: center;
   display: inline-block;
+  transition-duration: 0.4s;
+  margin: 8px;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+li {
+  cursor: pointer;
+  list-style-type: none;
+  padding: 10px;
+  margin: 5px 0;
+  background: #f8f8f8;
+  border-radius: 5px;
+}
+
+li:hover {
+  background: #e8e8e8;
 }
