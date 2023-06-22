@@ -28,7 +28,7 @@ function Board() {
 
   return (
     <>
-      <div>{status}</div>
+      <div className="status">{status}</div>
       <div className="board-row">
         <Square
           key={0}
