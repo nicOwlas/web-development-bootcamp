@@ -47,17 +47,21 @@ const App = () => {
   };
 
   return (
-    <div>
+    <div className="container">
       <h1>My Todo List</h1>
-      <input
-        value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
-        placeholder="Enter todo item"
-      />
-      <button onClick={() => handleValidate(inputValue)}>Add Task</button>
-      {items.map((item, index) => (
-        <TodoItem key={index} item={item} index={index} onDone={handleDone} />
-      ))}
+      <div className="input-value">
+        <input
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+          placeholder="Enter todo item"
+        />
+        <button onClick={() => handleValidate(inputValue)}>Add Task</button>
+      </div>
+      <ul>
+        {items.map((item, index) => (
+          <TodoItem key={index} item={item} index={index} onDone={handleDone} />
+        ))}
+      </ul>
     </div>
   );
 };

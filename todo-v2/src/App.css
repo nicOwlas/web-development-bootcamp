@@ -1,18 +1,49 @@
 /* App.css */
 
 body {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
   font-family: Arial, sans-serif;
+  background-color: #edf2f7;
+  height: 100vh;
 }
 
 h1 {
   color: #333;
 }
 
+.container {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  padding-top: 50px;
+  align-items: center;
+  height: 60vh;
+  width: 30vw;
+  background-color: white;
+  border-radius: 16px;
+}
+
+.input-value {
+  min-width: 400px;
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+}
+
+input {
+  flex-basis: 350px;
+}
+
 input,
 button {
   box-sizing: border-box;
   padding: 10px;
-  margin: 10px 0;
+  margin: 0;
+  border: 0px solid transparent;
+  border-bottom: dashed 3px gray;
 }
 
 button {
@@ -21,13 +52,21 @@ button {
   border: none;
   color: white;
   text-align: center;
-  display: inline-block;
+  /* display: inline-block; */
   transition-duration: 0.4s;
-  margin: 8px;
+  margin: 0;
 }
 
 button:hover {
   background-color: #45a049;
+}
+
+ul {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 400px;
+  margin: 0;
 }
 
 li {
@@ -35,7 +74,6 @@ li {
   list-style-type: none;
   padding: 10px;
   margin: 5px 0;
-  background: #f8f8f8;
   border-radius: 5px;
 }
 
