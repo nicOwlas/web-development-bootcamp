@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 
 interface Item {
@@ -26,10 +26,14 @@ const TodoItem: React.FC<TodoItemProps> = ({ item, index, onDone }) => {
 };
 
 const App = () => {
-  const [items, setItems] = useState<Item[]>([
-    { task: "Buy milk", checked: false },
-  ]);
+  const localStorageItems = localStorage.getItem("items");
+  const initialItems = localStorageItems ? JSON.parse(localStorageItems) : [];
+  const [items, setItems] = useState<Item[]>(initialItems);
   const [inputValue, setInputValue] = useState("");
+
+  useEffect(() => {
+    localStorage.setItem("items", JSON.stringify(items));
+  }, [items]);
 
   const handleValidate = (task: string) => {
     if (task !== "") {
