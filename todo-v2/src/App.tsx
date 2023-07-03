@@ -25,7 +25,7 @@ const TodoItem: React.FC<TodoItemProps> = ({ item, index, onDone }) => {
   );
 };
 
-const App = () => {
+const App: React.FC = () => {
   const localStorageItems = localStorage.getItem("items");
   const initialItems = localStorageItems ? JSON.parse(localStorageItems) : [];
   const [items, setItems] = useState<Item[]>(initialItems);
